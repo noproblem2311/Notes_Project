@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { getNote, updateNote } from '../services/noteService';
-import { Container, TextField, Button, Typography } from '@mui/material';
+import {
+  Container,
+  TextField,
+  Button,
+  Typography,
+  Paper,
+  Box,
+} from '@mui/material';
 
 const NoteEdit: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -26,33 +33,51 @@ const NoteEdit: React.FC = () => {
   };
 
   return (
-    <Container>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Edit Note
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          label="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          fullWidth
-          margin="normal"
-          required
-        />
-        <TextField
-          label="Content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          fullWidth
-          margin="normal"
-          required
-          multiline
-          rows={4}
-        />
-        <Button type="submit" variant="contained" color="primary">
-          Update Note
-        </Button>
-      </form>
+    <Container maxWidth="sm">
+      <Box mt={4}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Edit Note
+        </Typography>
+        <Paper elevation={3} sx={{ padding: 3 }}>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              label="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              fullWidth
+              margin="normal"
+              required
+            />
+            <TextField
+              label="Content"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              fullWidth
+              margin="normal"
+              required
+              multiline
+              rows={4}
+            />
+            <Box mt={2} display="flex" justifyContent="space-between">
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+              >
+                Update Note
+              </Button>
+              <Button
+                variant="outlined"
+                color="secondary"
+                component={Link}
+                to={`/notes/${id}`}
+              >
+                Back
+              </Button>
+            </Box>
+          </form>
+        </Paper>
+      </Box>
     </Container>
   );
 };
