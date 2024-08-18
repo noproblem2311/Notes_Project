@@ -41,5 +41,4 @@ coverage/
 *.sublime-project
 *.sublime-workspace
 
-# Ignore generated files for front-end
-public/static/
+
